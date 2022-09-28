@@ -1,0 +1,10 @@
+I. Tìm bug
+  xét luồng thực thi:
+  	chương trình sẽ thực hiện nhập name và được lưu trên stack (max size là 64) ký tự sau đó in ra, vì thế ta sẽ lợi dụng hàm printf để in giá trị ngay dưới name bằng cách làm tràn 1 byte xuống
+  	payload = b'a'*19 + b'Chino'
+  	output được in ra gồm 4 địa chỉ, ta chỉ quan tâm 2 địa chỉ đầu đó là địa chỉ của binary và địa chỉ của libc
+  	tiếp theo input là len của 1 arr và các giá trị trong đó, chúng đều được lưu trên stack và được sx lại thông qua hàm sort
+  	chính vì sx trên stack nên ta có thể thay đổi ret-addr thành giá trị mà ta mong muốn
+II. Kịch bản
+  Arr nằm trên canary -> khi nhập val vào arr thì có thể canary sẽ bị ghi đè, trong khi đó việc leak canary là 1 điều rất khó, vậy nên ta sẽ lợi dụng hàm sort sao cho vị trí canary không đổi
+  Canary cách arr 1 khoảng là 24, nên trong 24 phần tử đầu tiên tôi sẽ chọn 
