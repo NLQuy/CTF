@@ -1,0 +1,5 @@
+break *0x4014c3
+break *0x40150c
+break *0x40151d
+break *0x401531
+
